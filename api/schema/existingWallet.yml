@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  title: Wallet Program - Schemas
+  description: |-
+    Reusable schemas fo APIs
+  termsOfService: http://wallet.platform.pagopa.it/terms/
+  contact:
+    email: team@host.domain
+  license:
+    name: EUPL 1.2
+    url: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+  version: 0.0.1
+paths: {}
+
+components:
+  schemas:
+    ExistingWallet:
+      type: object
+      properties:
+        idWalletOld:
+          type: integer
+          format: int64
+          example: 1009098890
+          description: Existing IdWallet
+        taxCode:
+          type: string
+          pattern: '^\w{6}\d{2}\w{1}\d{2}\w{1}\d{3}\w{1}$'
+          example: "AAABBB00A00X000B"
+          description: Tax Code of the citizen who registered thw Wallet
+        bin:
+          type: string
+          pattern: '^\w{6}$'
+          example: 123456
+          description: Card Issuer Bin
+        expiryDate:
+          type: string
+          format: date
+          example: "2021-12-31"
+          description: Expiry date of the Payment Instrument associated to the Wallet
+        maskedPan:
+          type: string
+          pattern: '^\d{6}\*+\d{4}$'
+          description: Truncated PAN. Only bin and last 4 digits are visible
+        creationTs:
+          type: string
+          format: date-time
+          example: "2021-12-31T00.00.00Z"
+          description: Registration timestamp
+        contractNumber:
+          type: string
+          description: Id needed to pay on existing payment gateway
+        payTipperId:
+          type: string
+          description: Id needed to support PayPal
+        services:
+          type: array
+          items:
+            type: string
+          example: [PAGOPA]
+        onboardingChannel:
+          type: string
+          enum:
+            - appio
+            - wisp
+            - checkout
+            - atm
+            - pos
