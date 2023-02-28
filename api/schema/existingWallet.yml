@@ -65,3 +65,4 @@ components:
             - checkout
             - atm
             - pos
+            - guest
