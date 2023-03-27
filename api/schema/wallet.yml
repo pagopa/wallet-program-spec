@@ -135,7 +135,10 @@ paths:
 components:
   schemas:
     Wallet:
-      type: string
+      type: object
+      properties:
+        paymentInstrumentId:
+          type: string
     WalletPost:
       type: object
       properties:
