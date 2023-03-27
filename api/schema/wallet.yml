@@ -61,14 +61,13 @@ paths:
           description: ID of wallet to return
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
       requestBody:
         description: Update an existent wallet
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Wallet'
+              $ref: '#/components/schemas/WalletUpdate'
         required: true
       responses:
         '200':
@@ -76,7 +75,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Wallet'
+                $ref: '#/components/schemas/WalletUpdateResponse'
         '400':
           description: Invalid ID supplied
         '404':
@@ -103,7 +102,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Wallet'    
+                $ref: '#/components/schemas/WalletUpdateResponse'    
         '400':
           description: Invalid ID supplied
         '404':
@@ -115,12 +114,6 @@ paths:
       description: delete a wallet
       operationId: deleteWallet
       parameters:
-        - name: api_key
-          in: header
-          description: ''
-          required: false
-          schema:
-            type: string
         - name: walletId
           in: path
           description: Wallet id to delete
@@ -129,8 +122,16 @@ paths:
             type: integer
             format: int64
       responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletDeleteResponse'    
         '400':
-          description: Invalid wallet value
+          description: Invalid ID supplied
+        '404':
+          description: Wallet not found
 components:
   schemas:
     Wallet:
@@ -148,4 +149,7 @@ components:
           type: string
         logoutURI:
           type: string
-          
+    WalletUpdateResponse:
+      type: object
+    WalletDeleteResponse:
+      type: object
